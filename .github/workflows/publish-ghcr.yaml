@@ -14,6 +14,7 @@ jobs:
           docker build . -t ghcr.io/lincketheo/events-backend-ghcr:latest
           docker push ghcr.io/lincketheo/events-backend-ghcr:latest
   deploy:
+    needs: "build_and_publish"
     runs-on: ubuntu-latest
     steps:
       - name: Executing ssh command

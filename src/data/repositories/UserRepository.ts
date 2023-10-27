@@ -1,45 +1,39 @@
 import FirebaseUserDataSource from "../sources/FirebaseUserDataSource";
-import { PublicUserDTO } from "../models/Users";
-import { UserRecord } from "firebase-admin/auth";
-import { Unimplimented500Error } from "../../errors/apiExposedErrors";
+import { GetUserIdFromTokenResult, GetUserResult, PublicUserDTO } from "../models/Users";
+import { transformToDomainIDFromTokenResult, transformToDomainUserResult } from "./transforms/Users";
+import FirebaseTokenDataSource from "../sources/FirebaseTokenDataSource";
 
 export default class {
     firebaseUserDataSource: FirebaseUserDataSource
+    firebaseAuthenticationDS: FirebaseTokenDataSource
 
-    constructor(firebaseUserDataSource: FirebaseUserDataSource) {
+    constructor(firebaseUserDataSource: FirebaseUserDataSource, firebaseAuthenticationDS: FirebaseTokenDataSource) {
         this.firebaseUserDataSource = firebaseUserDataSource
+        this.firebaseAuthenticationDS = firebaseAuthenticationDS
     }
 
-    async getUser(id: string): Promise<PublicUserDTO | undefined> {
-        try {
-            const user = await this.firebaseUserDataSource.getFirebaseUserById(id)
-            return transformFirebaseUserToDomainPublicUserDTO(user)
-        } catch (e: any) {
-            console.error(e.code)
-            return undefined
-        }
+    async getUser(id: string): Promise<GetUserResult> {
+        const result = await this.firebaseUserDataSource.getFirebaseUserById(id)
+        return transformToDomainUserResult(result)
+    }
+
+    async getUserIdFromToken(token: string): Promise<GetUserIdFromTokenResult> {
+        const result = await this.firebaseAuthenticationDS.getDecodedToken(token)
+        return transformToDomainIDFromTokenResult(result)
     }
 
     async getUsers(ids: string[]): Promise<PublicUserDTO[]> {
         const users = await this.firebaseUserDataSource.getFirebaseUsersById(ids)
-        return users.map(transformFirebaseUserToDomainPublicUserDTO)
+        return users.map(transformToDomainUserResult)
+            .map(it => it.user)
+            .filter((it): it is PublicUserDTO => { return it !== undefined })
     }
 
     // TODO: DELETE - make smarter user query
     async getBatchOfUsers(): Promise<PublicUserDTO[]> {
         const users = await this.firebaseUserDataSource.getBatchOfUsers()
-        return users.filter(it => it.displayName !== undefined).map(transformFirebaseUserToDomainPublicUserDTO)
-    }
-}
-
-function transformFirebaseUserToDomainPublicUserDTO(user: UserRecord): PublicUserDTO {
-    if (user.displayName == null) {
-        throw new Unimplimented500Error("Who knows")
-    } else {
-        return {
-            name: user.displayName,
-            photoUrl: user.photoURL,
-            firebaseOwnerId: user.uid
-        }
+        return users.map(transformToDomainUserResult)
+            .map(it => it.user)
+            .filter((it): it is PublicUserDTO => { return it !== undefined })
     }
 }

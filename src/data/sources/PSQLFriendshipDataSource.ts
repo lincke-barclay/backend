@@ -1,7 +1,5 @@
 import { Pool } from "pg"
-import { PublicUserDTO } from "../models/Users"
 import { constructMyFriendsQuery, insertFriendship, pendingFriendshipsISent, pendingFriendshipsSentToMe, transitionFriendship } from "./queries/FriendshipQueries"
-import { simpleExecute } from "../../database/ResultLambdas"
 
 export default class PSQLFriendshipDataSource {
     pool: Pool
@@ -11,22 +9,30 @@ export default class PSQLFriendshipDataSource {
     }
 
     async getConfirmedFriendshipsForUser(id: string): Promise<string[]> {
-        return await simpleExecute(this.pool, constructMyFriendsQuery(id))
+        return await this.pool
+            .query(constructMyFriendsQuery(id))
+            .then(result => result.rows.map(row => row.requester === id ? row.recipient : row.requester))
     }
 
     async getPendingFriendshipsThatUserSent(id: string): Promise<string[]> {
-        return await simpleExecute(this.pool, pendingFriendshipsISent(id))
+        return await this.pool
+            .query(pendingFriendshipsISent(id))
+            .then(result => result.rows.map(row => row.recipient))
     }
 
     async getPendingFriendshipsSentToUser(id: string): Promise<string[]> {
-        return await simpleExecute(this.pool, pendingFriendshipsSentToMe(id))
+        return await this.pool
+            .query(pendingFriendshipsSentToMe(id))
+            .then(result => result.rows.map(row => row.requester))
     }
 
     async requestFriendship(requesterId: string, recipientId: string): Promise<void> {
-        return await simpleExecute(this.pool, insertFriendship(requesterId, recipientId))
+        // TODO - Handle errors
+        await this.pool.query(insertFriendship(requesterId, recipientId))
     }
 
     async acceptFriendship(requesterId: string, recipientId: string): Promise<void> {
-        return await simpleExecute(this.pool, transitionFriendship(requesterId, recipientId))
+        // TODO - Handle errors
+        await this.pool.query(transitionFriendship(requesterId, recipientId))
     }
 }

@@ -1,9 +1,9 @@
 import { Pool } from "pg";
-import DatabaseEvent from "./models/DatabaseEvent"
 import { POSTEventRequestDTO } from "../../routes/models/Events";
 import { EventsQuery, SingleEventQuery } from "../models/EventQueries";
 import { constructDeleteSingleEventQuery, constructEventsQuery, constructInsertEventQuery, constructSingleEventQuery } from "./queries/EventQueries";
-import { simpleExecute, simpleExecuteEnsureExistsAndUnique } from "../../database/ResultLambdas";
+import DatabaseEvent, { GetDatabaseEventResult, POSTEventRequestResult } from "./models/DatabaseEventModels";
+import { dbResultToGetDatabaseEventResult, dbResultToPOSTEventResult, dbRowToDatabaseEvent } from "./transforms/EventTransforms";
 
 export default class PSQLEventsDataSource {
     pool: Pool
@@ -13,18 +13,25 @@ export default class PSQLEventsDataSource {
     }
 
     async getEvents(query: EventsQuery): Promise<DatabaseEvent[]> {
-        return await simpleExecute(this.pool, constructEventsQuery(query))
+        return await this.pool
+            .query(constructEventsQuery(query))
+            .then(result => result.rows.map(dbRowToDatabaseEvent))
     }
 
-    async getEvent(query: SingleEventQuery): Promise<DatabaseEvent> {
-        return await simpleExecuteEnsureExistsAndUnique(this.pool, constructSingleEventQuery(query))
+    async getEvent(query: SingleEventQuery): Promise<GetDatabaseEventResult> {
+        return await this.pool
+            .query(constructSingleEventQuery(query))
+            .then(dbResultToGetDatabaseEventResult)
     }
 
-    async addEvent(event: POSTEventRequestDTO): Promise<DatabaseEvent> {
-        return await simpleExecuteEnsureExistsAndUnique(this.pool, constructInsertEventQuery({ event }))
+    async addEvent(event: POSTEventRequestDTO): Promise<POSTEventRequestResult> {
+        return await this.pool
+            .query(constructInsertEventQuery({ event }))
+            .then(dbResultToPOSTEventResult)
     }
 
     async deleteEvent(eventId: number): Promise<void> {
-        return await simpleExecute(this.pool, constructDeleteSingleEventQuery({ id: eventId }))
+        // TODO - error handle
+        await this.pool.query(constructDeleteSingleEventQuery({ id: eventId }))
     }
 }

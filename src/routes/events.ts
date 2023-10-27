@@ -1,47 +1,80 @@
 import express from "express"
-import { POSTEventRequestDTO } from "./models/Events"
 import { addEvent, deleteEvent, getEventById } from "../domain/events"
-import { provideAuthenticator } from "../security"
+import { EventState } from "../data/models/Events"
+import { guardAuthenticated } from "./util"
+import { POSTEventRequestResultState } from "../data/sources/models/DatabaseEventModels"
+import { ParsedStatus, postBodyToPOSTEventRequestDTO } from "./transforms/RouterEventTransforms"
 
 const router = express.Router()
-const authenticator = provideAuthenticator()
 
 router.get('/:eventId', (req, res, next) => {
-    authenticator.executeWithAuthenticationOrThrow(req.headers.authorization, () => {
+    guardAuthenticated(req, res, (uid) => {
         const eventId = Number(req.params.eventId)
-        getEventById(eventId).then(event => {
+        getEventById(eventId).then(eventResult => {
+            if (eventResult.state === EventState.DoesntExist) {
+                res.status(404).send()
+                return
+            }
+
+            const event = eventResult.event!!
+            if (event.organizer.firebaseOwnerId !== uid) {
+                res.status(404).send() // Err on 404 - could be 403 - don't want people trying to find if certain events exist
+                return
+            }
+
             res.status(200).json(event)
         })
-    }).catch(next)
+    })
 })
 
 router.post('/', (req, res, next) => {
-    authenticator.executeWithAuthenticationOrThrow(req.headers.authorization, () => {
-        const eventReq = postBodyToPOSTEventRequestDTO(req.body)
-        addEvent(eventReq).then(event => {
-            res.status(200).json(event)
+    const parsedResult = postBodyToPOSTEventRequestDTO(req.body)
+    if (parsedResult.status === ParsedStatus.FailedToParse) {
+        res.status(422).send()
+        return
+    }
+    const eventReq = parsedResult.parsed!!
+
+    guardAuthenticated(req, res, async (uid) => {
+        if (eventReq.firebaseOwnerId !== uid) {
+            res.status(403).send()
+            return
+        }
+        addEvent(eventReq).then(result => {
+            switch (result.state) {
+                case POSTEventRequestResultState.Conflict:
+                    res.status(409).send()
+                case POSTEventRequestResultState.Created:
+                    res.status(200).json(result.dbEvent!!)
+                case POSTEventRequestResultState.GenericError:
+                    res.status(500).send()
+            }
         })
-    }).catch(next)
+    })
 })
 
 router.delete('/:eventId', (req, res, next) => {
-    authenticator.executeWithAuthenticationOrThrow(req.headers.authorization, () => {
+    guardAuthenticated(req, res, (uid) => {
         const eventId = Number(req.params.eventId)
-        deleteEvent(eventId).then(event => {
-            res.status(204).send()
-        })
-    }).catch(next)
-})
 
-function postBodyToPOSTEventRequestDTO(body: any): POSTEventRequestDTO {
-    return {
-        title: body.title,
-        shortDescription: body.shortDescription,
-        longDescription: body.longDescription,
-        firebaseOwnerId: body.firebaseOwnerId,
-        startingDateTime: new Date(Date.parse(body.startingDateTime)),
-        endingDateTime: new Date(Date.parse(body.endingDateTime))
-    }
-}
+        // TODO - delete event by owner and event id in psql rather than 2 queries
+        getEventById(eventId).then(eventResult => {
+            if (eventResult.state === EventState.DoesntExist) {
+                res.status(404).send()
+                return
+            }
+
+            const event = eventResult.event!!
+            if (event.organizer.firebaseOwnerId !== uid) {
+                res.status(404).send() // Err on 404 - could be 403 - don't want people trying to find if certain events exist
+                return
+            }
+
+            deleteEvent(event.id).then(() => {
+                res.status(200).json(event)
+            })
+        })
+    })
+})
 
 export default router

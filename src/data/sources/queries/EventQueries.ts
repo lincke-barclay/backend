@@ -1,34 +1,26 @@
-import AppQuery from "../../../database/AppQuery"
+import { QueryConfig } from "pg"
 import { DeleteSingleEventQuery, EventsQuery, InsertEventQuery, SingleEventQuery } from "../../models/EventQueries"
-import DatabaseEvent from "../models/DatabaseEvent"
-import { dbRowToDatabaseEvent } from "../transforms/EventTransforms"
 
-export function constructEventsQuery(eventsQuery: EventsQuery): AppQuery<DatabaseEvent[]> {
+export function constructEventsQuery(eventsQuery: EventsQuery): QueryConfig {
     const q = "SELECT * FROM events"
     // TODO - make this smart :)
     return {
-        query: {
-            text: q,
-        },
-        onSuccess: (result) => result.rows.map(dbRowToDatabaseEvent)
+        text: q,
     }
 }
 
-export function constructSingleEventQuery(singleEventQuery: SingleEventQuery): AppQuery<DatabaseEvent> {
+export function constructSingleEventQuery(singleEventQuery: SingleEventQuery): QueryConfig {
     const q = "SELECT * FROM events WHERE id = $1"
     const values = [singleEventQuery.id!!]
 
     // TODO
     return {
-        query: {
-            text: q,
-            values,
-        },
-        onSuccess: (result) => dbRowToDatabaseEvent(result.rows[0])
+        text: q,
+        values,
     }
 }
 
-export function constructInsertEventQuery(insertEventQuery: InsertEventQuery): AppQuery<DatabaseEvent> {
+export function constructInsertEventQuery(insertEventQuery: InsertEventQuery): QueryConfig {
     const q = "INSERT INTO events " +
         "(title, short_description, long_description, firebase_owner_id, created_datetime_utc, starting_datetime_utc, ending_datetime_utc)" +
         "VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *"
@@ -46,23 +38,17 @@ export function constructInsertEventQuery(insertEventQuery: InsertEventQuery): A
     ]
 
     return {
-        query: {
-            text: q,
-            values,
-        },
-        onSuccess: (result) => dbRowToDatabaseEvent(result.rows[0])
+        text: q,
+        values,
     }
 }
 
-export function constructDeleteSingleEventQuery(deleteSingleEventQuery: DeleteSingleEventQuery): AppQuery<void> {
+export function constructDeleteSingleEventQuery(deleteSingleEventQuery: DeleteSingleEventQuery): QueryConfig {
     const q = "DELETE FROM events WHERE id = $1"
     const values = [deleteSingleEventQuery.id]
 
     return {
-        query: {
-            text: q,
-            values,
-        },
-        onSuccess: (result) => { return }
+        text: q,
+        values,
     }
 }

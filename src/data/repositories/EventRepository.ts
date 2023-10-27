@@ -1,10 +1,10 @@
 import PSQLEventsDataSource from "../sources/PSQLEventsDataSource"
 import UserRepository from "./UserRepository"
-import { EventWithPublicUser } from "../models/Events"
-import { PublicUserDTO } from "../models/Users"
+import { EventWithPublicUser, GetEventResult } from "../models/Events"
 import { POSTEventRequestDTO } from "../../routes/models/Events"
 import { EventsQuery, SingleEventQuery } from "../models/EventQueries"
-import DatabaseEvent from "../sources/models/DatabaseEvent"
+import { POSTEventRequestResult } from "../sources/models/DatabaseEventModels"
+import { combineUserResultWithEventResult, joinUsersWithEvents } from "./transforms/EventTransforms"
 
 export default class EventRepository {
     userRepository: UserRepository
@@ -22,17 +22,15 @@ export default class EventRepository {
         return joinUsersWithEvents(users, events)
     }
 
-    async getEventCombinedWithUser(query: SingleEventQuery): Promise<EventWithPublicUser | undefined> {
-        const event = await this.psqlEventDataSource.getEvent(query)
-        const user = await this.userRepository.getUser(event.firebaseOwnerId)
-        if (user !== undefined) {
-            return joinEventWithUser(user, event)
-        } else {
-            return undefined
-        }
+    async getEventCombinedWithUser(query: SingleEventQuery): Promise<GetEventResult> {
+        const eventResult = await this.psqlEventDataSource.getEvent(query)
+        return combineUserResultWithEventResult(
+            eventResult,
+            async (ownerId) => await this.userRepository.getUser(ownerId)
+        )
     }
 
-    async addEvent(event: POSTEventRequestDTO): Promise<DatabaseEvent> {
+    async addEvent(event: POSTEventRequestDTO): Promise<POSTEventRequestResult> {
         const result = await this.psqlEventDataSource.addEvent(event)
         return result
     }
@@ -42,32 +40,3 @@ export default class EventRepository {
     }
 }
 
-function joinUsersWithEvents(
-    users: PublicUserDTO[],
-    events: DatabaseEvent[]
-): EventWithPublicUser[] {
-    const uidToUser = Object.fromEntries(users.map(user => {
-        return [user.firebaseOwnerId, user]
-    }))
-    return events.map(event => {
-        const user = uidToUser[event.firebaseOwnerId]
-        if (user === undefined) {
-            return null
-        }
-        return joinEventWithUser(user, event)
-    }).filter((it): it is EventWithPublicUser => { return it != null })
-}
-
-function joinEventWithUser(user: PublicUserDTO, event: DatabaseEvent): EventWithPublicUser {
-    console.assert(user.firebaseOwnerId === event.firebaseOwnerId)
-    return {
-        id: event.id,
-        title: event.title,
-        shortDescription: event.shortDescription,
-        longDescription: event.longDescription,
-        organizer: user,
-        createdDateTime: event.createdDateTime,
-        startingDateTime: event.startingDateTime,
-        endingDateTime: event.endingDateTime,
-    }
-}

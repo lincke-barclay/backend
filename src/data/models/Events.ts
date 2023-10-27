@@ -10,3 +10,13 @@ export interface EventWithPublicUser {
     startingDateTime: Date,
     endingDateTime: Date,
 }
+
+export enum EventState {
+    Exists,
+    DoesntExist,
+}
+
+export interface GetEventResult {
+    state: EventState,
+    event: EventWithPublicUser | undefined,
+}

@@ -23,4 +23,4 @@ jobs:
           username: ${{ secrets.LINODE_USERNAME }}
           password: ${{ secrets.LINODE_PASSWORD }}
           port: ${{ secrets.LINODE_SSH_PORT }}
-          script: ./run-docker.sh
+          script: bash run-docker.sh

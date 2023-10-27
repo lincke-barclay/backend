@@ -1,34 +1,39 @@
 import express from "express"
-import providePGEventsDS from "../data/events"
-import POSTEventRequestDTO from "@/data/events/source/models/network/POSTEventRequestDTO"
+import { POSTEventRequestDTO } from "./models/Events"
+import { addEvent, deleteEvent, getEventById } from "../domain/events"
+import { provideAuthenticator } from "../security"
 
 const router = express.Router()
-const eventsDS = providePGEventsDS()
+const authenticator = provideAuthenticator()
 
-router.get('/:eventId', (req, res) => {
-    const eventId = Number(req.params.eventId)
-    eventsDS.getSingleEvent(eventId).then((event) => {
-        res.status(200).json(event)
-    })
+router.get('/:eventId', (req, res, next) => {
+    authenticator.executeWithAuthenticationOrThrow(req.headers.authorization, () => {
+        const eventId = Number(req.params.eventId)
+        getEventById(eventId).then(event => {
+            res.status(200).json(event)
+        })
+    }).catch(next)
 })
 
-router.post('/', (req, res) => {
-    const eventReq = postBodyToPOSTEventRequestDTO(req.body)
-    eventsDS.addEvent(eventReq).then((eventResp) => {
-        res.status(200).json(eventResp)
-    })
+router.post('/', (req, res, next) => {
+    authenticator.executeWithAuthenticationOrThrow(req.headers.authorization, () => {
+        const eventReq = postBodyToPOSTEventRequestDTO(req.body)
+        addEvent(eventReq).then(event => {
+            res.status(200).json(event)
+        })
+    }).catch(next)
 })
 
-router.delete('/:eventId', (req, res) => {
-    const eventId = Number(req.params.eventId)
-    eventsDS.deleteEvent(eventId).then(() => {
-        res.status(204).send()
-    })
+router.delete('/:eventId', (req, res, next) => {
+    authenticator.executeWithAuthenticationOrThrow(req.headers.authorization, () => {
+        const eventId = Number(req.params.eventId)
+        deleteEvent(eventId).then(event => {
+            res.status(204).send()
+        })
+    }).catch(next)
 })
 
 function postBodyToPOSTEventRequestDTO(body: any): POSTEventRequestDTO {
-    console.log(body.startingDateTime)
-    console.log(body.endingDateTime)
     return {
         title: body.title,
         shortDescription: body.shortDescription,

@@ -1,4 +1,6 @@
 import { initializeApp } from "firebase/app";
+import { installAuth } from "./authentication";
+import { installAdmin } from "./admin";
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -10,4 +12,12 @@ const firebaseConfig = {
     measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
-export const firebase = initializeApp(firebaseConfig);
+export function installFirebaseApp() {
+    const app = initializeApp(firebaseConfig)
+    const admin = installAdmin()
+    const auth = installAuth(app)
+    return {
+        app,
+        auth,
+    }
+}

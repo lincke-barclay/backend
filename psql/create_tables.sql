@@ -9,3 +9,12 @@ CREATE TABLE IF NOT EXISTS events (
     ending_datetime_utc TIMESTAMP NOT NULL,
     CHECK (starting_datetime_utc > created_datetime_utc AND ending_datetime_utc > starting_datetime_utc)
 );
+
+CREATE TYPE friend_status_type AS ENUM ('accepted', 'pending');
+
+CREATE TABLE IF NOT EXISTS friendships (
+    requester VARCHAR(100) NOT NULL,
+    recipient VARCHAR(100) NOT NULL,
+    friend_status friend_status_type,
+    PRIMARY KEY(requester, recipient)
+);

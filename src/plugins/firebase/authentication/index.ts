@@ -1,4 +1,6 @@
-import { firebase } from "../../firebase"
+import { FirebaseApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
 
-const authentication = getAuth(firebase)
+export function installAuth(app: FirebaseApp) {
+    return getAuth(app)
+}

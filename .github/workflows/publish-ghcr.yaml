@@ -8,6 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v3
+      - name: Create environment file
+        run: |
+          echo POSTGRES_DB_NAME='${{ secrets.LINODE_DB_NAME }}' >> .env
+          echo POSTGRES_PASSWORD='${{ secrets.LINODE_PG_PASSWORD }}' >> .env
+          echo POSTGRES_USERNAME='${{ secrets.LINODE_PG_USERNAME }}' >> .env
       - name: Build and Push
         run: |
           docker login --username lincketheo --password ${{ secrets.GH_PAT }} ghcr.io

@@ -7,7 +7,7 @@
     <list default="true" id="7a778654-6f52-46b7-badc-2a3e99a73eab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.github/workflows/publish-ghcr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/publish-ghcr.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +73,7 @@
       <workItem from="1698503984549" duration="13000" />
       <workItem from="1698504001839" duration="77000" />
       <workItem from="1698504083473" duration="40000" />
-      <workItem from="1698504127699" duration="13169000" />
+      <workItem from="1698504127699" duration="15238000" />
     </task>
     <servers />
   </component>

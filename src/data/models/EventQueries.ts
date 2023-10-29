@@ -1,5 +1,5 @@
-import { POSTEventRequestDTO } from "../../routes/models/Events"
-import { PageableQuery } from "./Queries"
+import {POSTEventRequestDTO} from "../../routes/models/Events"
+import {PageableQuery} from "./Queries"
 
 export interface EventsQuery extends PageableQuery {
     order?: EventOrderType,

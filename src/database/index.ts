@@ -1,4 +1,4 @@
-import { Pool, QueryConfig, QueryResult } from 'pg';
+import {Pool} from 'pg';
 
 const pool = new Pool({
     host: 'localhost',

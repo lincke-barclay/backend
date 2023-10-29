@@ -1,4 +1,4 @@
-import { QueryConfig } from "pg";
+import {QueryConfig} from "pg";
 
 export function constructMyFriendsQuery(myId: string): QueryConfig {
     const q = "SELECT * FROM friendships WHERE (requester = $1 OR recipient = $1) AND status = 'accepted'"

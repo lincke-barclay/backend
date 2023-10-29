@@ -1,5 +1,10 @@
-import { QueryResult } from "pg";
-import DatabaseEvent, { DatabaseEventState, GetDatabaseEventResult, POSTEventRequestResult, POSTEventRequestResultState } from "../models/DatabaseEventModels";
+import {QueryResult} from "pg";
+import DatabaseEvent, {
+    DatabaseEventState,
+    GetDatabaseEventResult,
+    POSTEventRequestResult,
+    POSTEventRequestResultState
+} from "../models/DatabaseEventModels";
 
 export function dbRowToDatabaseEvent(
     row: any,

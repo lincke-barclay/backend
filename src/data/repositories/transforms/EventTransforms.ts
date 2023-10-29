@@ -1,6 +1,6 @@
-import { EventState, EventWithPublicUser, GetEventResult } from "../../models/Events";
-import { GetUserResult, PublicUserDTO, UserState } from "../../models/Users";
-import DatabaseEvent, { DatabaseEventState, GetDatabaseEventResult } from "../../sources/models/DatabaseEventModels";
+import {EventState, EventWithPublicUser, GetEventResult} from "../../models/Events";
+import {GetUserResult, PublicUserDTO, UserState} from "../../models/Users";
+import DatabaseEvent, {DatabaseEventState, GetDatabaseEventResult} from "../../sources/models/DatabaseEventModels";
 
 export async function combineUserResultWithEventResult(
     eventResult: GetDatabaseEventResult,

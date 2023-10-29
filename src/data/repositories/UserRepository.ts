@@ -1,6 +1,6 @@
 import FirebaseUserDataSource from "../sources/FirebaseUserDataSource";
-import { GetUserIdFromTokenResult, GetUserResult, PublicUserDTO } from "../models/Users";
-import { transformToDomainIDFromTokenResult, transformToDomainUserResult } from "./transforms/Users";
+import {GetUserIdFromTokenResult, GetUserResult, PublicUserDTO} from "../models/Users";
+import {transformToDomainIDFromTokenResult, transformToDomainUserResult} from "./transforms/Users";
 import FirebaseTokenDataSource from "../sources/FirebaseTokenDataSource";
 
 export default class {
@@ -26,7 +26,9 @@ export default class {
         const users = await this.firebaseUserDataSource.getFirebaseUsersById(ids)
         return users.map(transformToDomainUserResult)
             .map(it => it.user)
-            .filter((it): it is PublicUserDTO => { return it !== undefined })
+            .filter((it): it is PublicUserDTO => {
+                return it !== undefined
+            })
     }
 
     // TODO: DELETE - make smarter user query
@@ -34,6 +36,8 @@ export default class {
         const users = await this.firebaseUserDataSource.getBatchOfUsers()
         return users.map(transformToDomainUserResult)
             .map(it => it.user)
-            .filter((it): it is PublicUserDTO => { return it !== undefined })
+            .filter((it): it is PublicUserDTO => {
+                return it !== undefined
+            })
     }
 }

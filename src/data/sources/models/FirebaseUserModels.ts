@@ -1,5 +1,5 @@
-import { DecodedIdToken, UserRecord } from "firebase-admin/auth";
-import { AuthState } from "../../models/Users";
+import {DecodedIdToken, UserRecord} from "firebase-admin/auth";
+import {AuthState} from "../../models/Users";
 
 export enum FirebaseUserState {
     Exists,

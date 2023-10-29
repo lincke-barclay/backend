@@ -1,5 +1,5 @@
 import providePool from "../database";
-import { provideUserRepository } from "./users";
+import {provideUserRepository} from "./users";
 import EventRepository from "./repositories/EventRepository";
 import PSQLEventsDataSource from "./sources/PSQLEventsDataSource";
 

@@ -1,4 +1,4 @@
-import { POSTEventRequestDTO } from "../models/Events";
+import {POSTEventRequestDTO} from "../models/Events";
 
 export enum ParsedStatus {
     Parsed,

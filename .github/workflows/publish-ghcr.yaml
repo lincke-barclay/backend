@@ -22,6 +22,6 @@ jobs:
         with:
           host: ${{ secrets.LINODE_HOST }}
           username: ${{ secrets.LINODE_USERNAME }}
-          password: ${{ secrets.LINODE_PASSWORD }}
+          key: ${{ secrets.LINODE_GITHUB_SSH_KEY }}
           port: ${{ secrets.LINODE_SSH_PORT }}
-          script: bash run-docker.sh
+          script: echo '${{ secrets.LINODE_GITHUB_PASSWORD }}' | sudo -S systemctl restart communeo-api

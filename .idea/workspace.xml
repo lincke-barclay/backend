@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7a778654-6f52-46b7-badc-2a3e99a73eab" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/publish-ghcr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/publish-ghcr.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/events.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/friends.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/friends.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/models/EventQueries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/models/EventQueries.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/models/Events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/models/Events.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/repositories/EventRepository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/repositories/EventRepository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/repositories/FriendshipRepository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/repositories/FriendshipRepository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/repositories/UserRepository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/repositories/UserRepository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/repositories/transforms/EventTransforms.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/repositories/transforms/EventTransforms.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/repositories/transforms/Users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/repositories/transforms/Users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/sources/FirebaseTokenDataSource.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/sources/FirebaseTokenDataSource.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/sources/FirebaseUserDataSource.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/sources/FirebaseUserDataSource.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/sources/PSQLEventsDataSource.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/sources/PSQLEventsDataSource.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/sources/PSQLFriendshipDataSource.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/sources/PSQLFriendshipDataSource.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/sources/models/FirebaseUserModels.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/sources/models/FirebaseUserModels.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/sources/queries/EventQueries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/sources/queries/EventQueries.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/sources/queries/FriendshipQueries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/sources/queries/FriendshipQueries.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/sources/transforms/EventTransforms.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/sources/transforms/EventTransforms.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/events/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/events/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/friends/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/friends/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/errors/handler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/errors/handler.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plugins/firebase/admin/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugins/firebase/admin/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plugins/firebase/authentication/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugins/firebase/authentication/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plugins/firebase/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugins/firebase/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/events.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/events.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/feed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/feed.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/transforms/RouterEventTransforms.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/transforms/RouterEventTransforms.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/util.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/util.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2XOdBgA4qpqdrZq8qhBU2l0nBSC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/theolincke/Development/events/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/theolincke/Development/events/backend/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7a778654-6f52-46b7-badc-2a3e99a73eab" name="Changes" comment="" />
+      <created>1698503926126</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698503926126</updated>
+      <workItem from="1698503927560" duration="52000" />
+      <workItem from="1698503984549" duration="13000" />
+      <workItem from="1698504001839" duration="77000" />
+      <workItem from="1698504083473" duration="40000" />
+      <workItem from="1698504127699" duration="8664000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

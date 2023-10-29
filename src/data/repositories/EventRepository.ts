@@ -1,10 +1,10 @@
 import PSQLEventsDataSource from "../sources/PSQLEventsDataSource"
 import UserRepository from "./UserRepository"
-import { EventWithPublicUser, GetEventResult } from "../models/Events"
-import { POSTEventRequestDTO } from "../../routes/models/Events"
-import { EventsQuery, SingleEventQuery } from "../models/EventQueries"
-import { POSTEventRequestResult } from "../sources/models/DatabaseEventModels"
-import { combineUserResultWithEventResult, joinUsersWithEvents } from "./transforms/EventTransforms"
+import {EventWithPublicUser, GetEventResult} from "../models/Events"
+import {POSTEventRequestDTO} from "../../routes/models/Events"
+import {EventsQuery, SingleEventQuery} from "../models/EventQueries"
+import {POSTEventRequestResult} from "../sources/models/DatabaseEventModels"
+import {combineUserResultWithEventResult, joinUsersWithEvents} from "./transforms/EventTransforms"
 
 export default class EventRepository {
     userRepository: UserRepository
@@ -16,9 +16,13 @@ export default class EventRepository {
     }
 
     async getEventsCombinedWithUsers(query: EventsQuery): Promise<EventWithPublicUser[]> {
+        console.log("there2")
         const events = await this.psqlEventDataSource.getEvents(query)
+        console.log("there3")
         const userIds = events.map(it => it.firebaseOwnerId)
+        console.log("there4")
         const users = await this.userRepository.getUsers(userIds)
+        console.log("there5")
         return joinUsersWithEvents(users, events)
     }
 

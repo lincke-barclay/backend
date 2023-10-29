@@ -1,5 +1,11 @@
-import { Pool } from "pg"
-import { constructMyFriendsQuery, insertFriendship, pendingFriendshipsISent, pendingFriendshipsSentToMe, transitionFriendship } from "./queries/FriendshipQueries"
+import {Pool} from "pg"
+import {
+    constructMyFriendsQuery,
+    insertFriendship,
+    pendingFriendshipsISent,
+    pendingFriendshipsSentToMe,
+    transitionFriendship
+} from "./queries/FriendshipQueries"
 
 export default class PSQLFriendshipDataSource {
     pool: Pool

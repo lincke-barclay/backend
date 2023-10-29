@@ -1,8 +1,8 @@
-import { Pool } from "pg";
-import { UidIdentifier, UserRecord, getAuth } from "firebase-admin/auth";
-import { FirebaseError } from "firebase/app";
-import { AuthErrorCodes } from "firebase/auth";
-import { FirebaseUserState, GetFirebaseUserResult } from "./models/FirebaseUserModels";
+import {Pool} from "pg";
+import {getAuth, UidIdentifier} from "firebase-admin/auth";
+import {FirebaseError} from "firebase/app";
+import {AuthErrorCodes} from "firebase/auth";
+import {FirebaseUserState, GetFirebaseUserResult} from "./models/FirebaseUserModels";
 
 
 export default class {

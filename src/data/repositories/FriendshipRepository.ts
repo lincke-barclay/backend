@@ -1,4 +1,4 @@
-import { PublicUserDTO } from "../models/Users";
+import {PublicUserDTO} from "../models/Users";
 import PSQLFriendshipDataSource from "../sources/PSQLFriendshipDataSource";
 import UserRepository from "./UserRepository";
 

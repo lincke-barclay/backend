@@ -1,6 +1,6 @@
 import express from "express"
-import { getSuggestedFriendsFor } from "../domain/friends"
-import { guardAuthenticated } from "./util"
+import {getSuggestedFriendsFor} from "../domain/friends"
+import {guardAuthenticated} from "./util"
 
 const router = express.Router()
 

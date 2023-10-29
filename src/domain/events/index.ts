@@ -1,6 +1,6 @@
-import { provideEventRepository } from "../../data/events";
-import { EventsQuery, SingleEventQuery } from "../../data/models/EventQueries";
-import { POSTEventRequestDTO } from "../../routes/models/Events";
+import {provideEventRepository} from "../../data/events";
+import {EventsQuery, SingleEventQuery} from "../../data/models/EventQueries";
+import {POSTEventRequestDTO} from "../../routes/models/Events";
 
 const eventRepository = provideEventRepository()
 
@@ -8,8 +8,7 @@ export async function getEventById(id: number) {
     const query: SingleEventQuery = {
         id
     }
-    const event = await eventRepository.getEventCombinedWithUser(query)
-    return event
+    return await eventRepository.getEventCombinedWithUser(query)
 }
 
 export async function getFeed(userId: number, page: number, pageSize: number, offset: number) {

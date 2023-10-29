@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { installAuth } from "./authentication";
-import { installAdmin } from "./admin";
+import {initializeApp} from "firebase/app";
+import {installAuth} from "./authentication";
+import {installAdmin} from "./admin";
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,

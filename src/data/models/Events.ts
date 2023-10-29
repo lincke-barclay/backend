@@ -1,4 +1,4 @@
-import { PublicUserDTO } from "./Users";
+import {PublicUserDTO} from "./Users";
 
 export interface EventWithPublicUser {
     id: number,

@@ -1,9 +1,18 @@
-import { Pool } from "pg";
-import { POSTEventRequestDTO } from "../../routes/models/Events";
-import { EventsQuery, SingleEventQuery } from "../models/EventQueries";
-import { constructDeleteSingleEventQuery, constructEventsQuery, constructInsertEventQuery, constructSingleEventQuery } from "./queries/EventQueries";
-import DatabaseEvent, { GetDatabaseEventResult, POSTEventRequestResult } from "./models/DatabaseEventModels";
-import { dbResultToGetDatabaseEventResult, dbResultToPOSTEventResult, dbRowToDatabaseEvent } from "./transforms/EventTransforms";
+import {Pool} from "pg";
+import {POSTEventRequestDTO} from "../../routes/models/Events";
+import {EventsQuery, SingleEventQuery} from "../models/EventQueries";
+import {
+    constructDeleteSingleEventQuery,
+    constructEventsQuery,
+    constructInsertEventQuery,
+    constructSingleEventQuery
+} from "./queries/EventQueries";
+import DatabaseEvent, {GetDatabaseEventResult, POSTEventRequestResult} from "./models/DatabaseEventModels";
+import {
+    dbResultToGetDatabaseEventResult,
+    dbResultToPOSTEventResult,
+    dbRowToDatabaseEvent
+} from "./transforms/EventTransforms";
 
 export default class PSQLEventsDataSource {
     pool: Pool

@@ -1,9 +1,9 @@
 import express from "express"
-import { addEvent, deleteEvent, getEventById } from "../domain/events"
-import { EventState } from "../data/models/Events"
-import { guardAuthenticated } from "./util"
-import { POSTEventRequestResultState } from "../data/sources/models/DatabaseEventModels"
-import { ParsedStatus, postBodyToPOSTEventRequestDTO } from "./transforms/RouterEventTransforms"
+import {addEvent, deleteEvent, getEventById} from "../domain/events"
+import {EventState} from "../data/models/Events"
+import {guardAuthenticated} from "./util"
+import {POSTEventRequestResultState} from "../data/sources/models/DatabaseEventModels"
+import {ParsedStatus, postBodyToPOSTEventRequestDTO} from "./transforms/RouterEventTransforms"
 
 const router = express.Router()
 

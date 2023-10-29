@@ -1,5 +1,5 @@
-import { QueryConfig } from "pg"
-import { DeleteSingleEventQuery, EventsQuery, InsertEventQuery, SingleEventQuery } from "../../models/EventQueries"
+import {QueryConfig} from "pg"
+import {DeleteSingleEventQuery, EventsQuery, InsertEventQuery, SingleEventQuery} from "../../models/EventQueries"
 
 export function constructEventsQuery(eventsQuery: EventsQuery): QueryConfig {
     const q = "SELECT * FROM events"

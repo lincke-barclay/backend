@@ -11,8 +11,8 @@ jobs:
       - name: Build and Push
         run: |
           docker login --username lincketheo --password ${{ secrets.GH_PAT }} ghcr.io
-          docker build . -t ghcr.io/lincketheo/events-backend-ghcr:latest
-          docker push ghcr.io/lincketheo/events-backend-ghcr:latest
+          docker build . -t ghcr.io/lincketheo/communeo-api:latest
+          docker push ghcr.io/lincketheo/communeo-api:latest
   deploy:
     needs: "build_and_publish"
     runs-on: ubuntu-latest
